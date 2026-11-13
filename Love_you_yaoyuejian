@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姚悦健你在干嘛！我想你了</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd6e0, #c3e0ff, #fff2cc);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Microsoft YaHei", sans-serif;
+            cursor: pointer;
+        }
+        /* 闪烁星星 */
+        .star {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%,100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .main-text {
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(90deg, #ff4d88, #7b61ff, #36cfff, #ffb347);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradientMove 3s ease infinite, bounce 1.2s ease-in-out infinite;
+            transition: all 0.3s ease;
+            padding: 20px;
+            user-select: none;
+        }
+        .main-text:hover {
+            transform: scale(1.15) rotate(3deg);
+            filter: drop-shadow(0 0 12px rgba(255,77,136,0.6));
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        /* 点击弹出爱心 */
+        .heart {
+            position: absolute;
+            color: #ff4d88;
+            font-size: 28px;
+            pointer-events: none;
+            animation: heartFly 1.2s ease-out forwards;
+        }
+        @keyframes heartFly {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-180px) scale(1.6);
+            }
+        }
+        .tip {
+            position: absolute;
+            bottom: 40px;
+            font-size: 16px;
+            color: #666;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,100% {opacity:0.6;}
+            50% {opacity:1;}
+        }
+    </style>
+</head>
+<body>
+    <div class="main-text">姚悦健你在干嘛！我想你了</div>
+    <div class="tip">✨ 点击屏幕冒出爱心 ✨</div>
+
+    <script>
+        // 生成随机星星
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(star);
+        }
+        for(let i=0; i<35; i++) createStar();
+
+        // 点击生成爱心
+        document.body.addEventListener('click', function(e){
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerText = ['💖','💕','💓','💗','💘'][Math.floor(Math.random()*5)];
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            document.body.appendChild(heart);
+            setTimeout(()=>heart.remove(),1200);
+        })
+    </script>
+</body>
+</html>
